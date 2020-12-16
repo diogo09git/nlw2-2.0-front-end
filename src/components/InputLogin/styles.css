@@ -1,0 +1,58 @@
+.input-login-block {
+    margin-bottom: -0.9rem;
+}
+
+.input-login-block input {
+    width: 100%;
+    height: 5.6rem;
+
+    margin-top: 0.8rem;
+    border-radius: 0.8rem;
+
+    background: var(--color-input-background);
+    border: 1px solid var(--color-line-in-white);
+
+    outline: 0;
+    padding: 0 1.6rem;
+    font: 1.6rem Archivo;
+}
+
+.input-login-block label {
+    font: 300 1.6rem Poppins;
+    color: var(--color-text-complement);
+    position: absolute;
+    display: flex;
+    margin: -5rem 2rem;
+    transition: .5s;
+    pointer-events: none;
+}
+
+.input-login-block input:focus ~ label {
+    margin-top: -65px;
+    font: 200 1.3rem Poppins;
+    color: var(--color-label-style);
+}
+
+.input-login-block input:valid ~ label {
+    margin-top: -65px;
+    font: 200 1.4rem Poppins;
+}
+
+.input-login-block + .input-login-block {
+    margin-bottom: 3rem;
+}
+
+.input-login-block input {
+    height: 7.2rem;
+    border-radius: 1rem;
+}
+
+.input-login-block:focus-within::after {
+    width: 0.2rem;
+    height: 5rem;
+    margin: 20px 0;
+    margin-left: -34.8rem;
+    content: '';
+    background: var(--color-primary-light);
+    position: absolute;
+}

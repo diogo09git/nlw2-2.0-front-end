@@ -1,0 +1,76 @@
+.page-forget {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.page-forget .top-bar-container a {
+    transition: opacity 0.2s;
+}
+
+.page-forget .top-bar-container a:hover {
+    opacity: 0.6;
+}
+
+.page-forget main {
+    width: 50vw;
+    height: 100vh;
+    
+    display: grid;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--color-background);
+}
+
+.page-forget main fieldset {
+    width: 35rem;
+    height: 45rem;
+
+    border: 0;
+}
+
+.page-forget main fieldset legend {
+    font: 600 3.6rem Poppins;
+    line-height: 3.6rem;
+    font-style: normal;
+
+    margin-bottom: 2rem;
+    
+    color: var(--color-text-title);
+}
+
+.page-forget main fieldset p {
+    /* width: 22.7rem; */
+    font-size: 17px;
+    line-height: 26px;
+    margin-bottom: 4rem;
+}
+
+.page-forget main fieldset button {
+    width: 100%;
+    height: 5.6rem;
+    
+    font: 600 1.6rem Archivo;
+    font-style: normal;
+    color: var(--color-text-complement);
+    cursor: pointer;
+    
+    border: 0;
+    border-radius: 0.8rem;
+
+    background-color: var(--color-button-login);
+    margin: 2rem 0;
+    margin-bottom: 2px;
+    transition: color 0.3s;
+}
+
+.page-forget main fieldset button:hover {
+    background-color: var(--color-secundary);
+    color: var(--color-line-in-white);
+}
+
+.page-forget .finish-container p {
+    width: 50rem;
+}

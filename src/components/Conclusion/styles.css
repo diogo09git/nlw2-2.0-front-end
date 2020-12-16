@@ -1,0 +1,64 @@
+.page-finish {
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--color-primary);
+    background-image: url('../../assets/images/success-background.svg');
+}
+
+.finish-container {
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+}
+
+.finish-container img {
+    margin: 0 auto;
+    margin-top: 8rem;
+}
+
+.finish-container h1 {
+    font: 700 5.4rem Archivo;
+    margin-top: -9rem;
+    color: var(--color-title-in-primary);
+}
+
+.finish-container p {
+    font: 500 1.7rem Poppins;
+    width: 40rem;
+    margin: -10rem 0 0 10rem;
+    text-indent: -4rem;
+    color: var(--color-text-in-primary);
+}
+
+.finish-container a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: -5rem;
+
+    text-decoration: none;
+}
+
+.finish-container button {
+    width: 16rem;
+    height: 5.6rem;
+    
+    font: 600 1.6rem Archivo;
+    font-style: normal;
+    color: var(--color-title-in-primary);
+    cursor: pointer;
+    
+    border: 0;
+    border-radius: 0.8rem;
+
+    background-color: var(--color-secundary);
+    margin-bottom: 8rem;
+    transition: color 0.3s;
+}
+
+.finish-container button:hover {
+    background-color: var(--color-secundary-dark);
+    color: var(--color-title-in-primary);
+}

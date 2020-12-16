@@ -1,0 +1,29 @@
+.page-login {
+    /* width: 50vw; */
+    height: 100vh;
+    display: flex;
+}
+
+.page-login .header-content {
+    width: 50vw;
+    background-color: var(--color-primary);
+    background-image: url('../../assets/images/success-background.svg');
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.page-login .header-content img {
+    height: 10rem;
+    margin-bottom: 2rem;
+}
+
+.page-login .header-content strong {
+    font: 400 3rem Poppins;
+    width: 40rem;
+    margin-left: 5rem;
+    line-height: 4.2rem;
+    color: var(--color-text-in-primary);
+}
