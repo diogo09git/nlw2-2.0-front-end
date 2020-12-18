@@ -5,8 +5,8 @@ import loginReducer, { initialState } from './useReducer';
 export default function LoginPlain() {
     const [state, dispatch] = useReducer(loginReducer, initialState);
     
-    const { username, password, isLoading, error, isLoggedIn } = state;
-    console.log(username);
+    const { email, password, isLoading, error, isLoggedIn } = state;
+    console.log(email);
 
     // const onSubmit = async e => {
     //     e.preventDefault();
@@ -14,7 +14,7 @@ export default function LoginPlain() {
     //     dispatch({ type: 'login' });
 
     //     try{
-    //         await login({ username, password });
+    //         await login({ email, password });
     //         dispatch({ type: 'success' });
     //     } catch(error) {
     //         dispatch({ type: 'error' });
@@ -27,7 +27,7 @@ export default function LoginPlain() {
         dispatch({ type: 'login' });
 
         try{
-            await login( username, password );
+            await login( email, password );
             dispatch({ type: 'success' });
         } catch(error) {
             dispatch({ type: 'error' });
@@ -37,7 +37,7 @@ return (
     <div>
         {isLoggedIn ? (
             <>
-                <h1>welcome {username}</h1>
+                <h1>welcome  {email}</h1>
                 <button onClick={() => dispatch({ type: 'logout'})}>Logout</button>
             </>
         ) : ( 
@@ -45,11 +45,11 @@ return (
             {error && <p>{error}</p>}
             <input 
                 type="text" 
-                value={username}
+                value= {email}
                 onChange={e => 
                     dispatch({
                         type: 'field',
-                        fieldName: 'username',
+                        fieldName: 'email',
                         payload: e.currentTarget.value,
                     })}
             /><br/>

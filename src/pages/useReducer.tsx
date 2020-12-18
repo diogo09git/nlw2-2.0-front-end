@@ -1,6 +1,6 @@
 
 interface LoginState  {
-    username: string;
+    email: string;
     password: string;
     isLoading: boolean;
     error: string;
@@ -12,7 +12,7 @@ type LoginAction =
     { type: 'field'; fieldName: string; payload: string };
 
 export const initialState: LoginState = {
-        username: '',
+        email: '',
         password: '',
         isLoading: false,
         error: '',

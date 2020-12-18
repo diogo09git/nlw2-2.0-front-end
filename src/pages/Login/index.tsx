@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useReducer, useState } from 'react';
 import PageLogin from '../../components/PageLogin';
 import { Link } from 'react-router-dom';
 import InputLogin from '../../components/InputLogin';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
+import loginReducer, { initialState } from '../useReducer';
 
 import purple from '../../assets/images/icons/purple-heart.svg';
 import check from '../../assets/images/icons/check.svg';
@@ -11,8 +12,9 @@ import check from '../../assets/images/icons/check.svg';
 import './styles.css';
 
 function Login() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const[state, dispatch] = useReducer(loginReducer, initialState);
+    const { email, password, isLoading, error, isLoggedIn } = state;
+
     const [remember, setRemember] = useState(false);
     const [visible, setVisible] = useState(false);
     const eye = <FontAwesomeIcon icon={faEye}/>;
@@ -33,18 +35,26 @@ return(
                 <fieldset>
                     <form action="">
                         <legend>Fazer login</legend>
-                        <InputLogin 
-                            name="email" 
+                        <InputLogin
                             label="E-mail" 
                             value={email} 
-                            onChange={e => setEmail(e.target.value)}
+                            onChange={e => 
+                                dispatch({
+                                    type: 'field',
+                                    fieldName: 'email',
+                                    payload: e.currentTarget.value,
+                                })}
                         />
                         <InputLogin
                             type={ visible ? "text" : "password" }
                             label="Senha" 
-                            name="senha"
                             value={password} 
-                            onChange={e => setPassword(e.target.value)}
+                            onChange={e => 
+                                dispatch({
+                                    type: 'field',
+                                    fieldName: 'password',
+                                    payload: e.currentTarget.value,
+                                })}
                         />
                         <i onClick={ handleVisible }>{ visible ? eye : eyeSlah }</i>
                         
