@@ -74,25 +74,35 @@ const RegisterForm: React.FC<FormikProps<FormValues>> = () => {
                     <form onSubmit={formik.handleSubmit}>
                         <legend>Cadastro</legend>
                         <p>Preencha os dados abaixo para começar.</p>
-                        
+
+                        { formik.errors.name && formik.touched.name && 
+                            <div className="error">
+                                <span>{ formik.errors.name }</span> 
+                            </div>
+                        }
                         <InputLogin
                             label="Nome"
                             id="name"
                             onChange={formik.handleChange}
                             value={formik.values.name}
-                        /> 
-                        { formik.errors.name && formik.touched.name && 
-                            <span>{ formik.errors.name }</span> 
-                        }  
+                        />   
 
+                        { formik.errors.lastName && formik.touched.lastName &&
+                            <div className="error">
+                                <span>{ formik.errors.lastName }</span>
+                            </div>
+                        }
                         <InputLogin
                             label="Sobrenome"
                             id="lastName"
                             onChange={formik.handleChange}
                             value={formik.values.lastName}
                         />
-                        { formik.errors.lastName && formik.touched.lastName &&
-                            <span>{ formik.errors.lastName }</span>
+
+                        { formik.errors.eMail && formik.touched.eMail &&
+                            <div className="error">
+                                <span>{ formik.errors.eMail }</span>
+                            </div>
                         }
                         <InputLogin
                             label="E-mail"
@@ -100,8 +110,11 @@ const RegisterForm: React.FC<FormikProps<FormValues>> = () => {
                             onChange={formik.handleChange}
                             value={formik.values.eMail}
                         />
-                        { formik.errors.eMail && formik.touched.eMail &&
-                            <span>{ formik.errors.eMail }</span>
+
+                        { formik.errors.password && formik.touched.password && 
+                            <div className="error">
+                                <span>{ formik.errors.password }</span> 
+                            </div>
                         }
                         <InputLogin
                             type={ visible ? "text" : "password" }
@@ -112,10 +125,6 @@ const RegisterForm: React.FC<FormikProps<FormValues>> = () => {
                             value={formik.values.password}
                         /> 
                         <i onClick={ handleVisible }>{ visible ? eye : eyeSlash }</i>
-
-                        { formik.errors.password && formik.touched.password && 
-                            <span>{ formik.errors.password }</span> 
-                        }
 
                         <button type="submit">Concluir cadastro</button>
                     </form>

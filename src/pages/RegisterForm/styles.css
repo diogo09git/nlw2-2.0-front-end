@@ -52,6 +52,12 @@
     margin: -1rem 0;
 }
 
+.page-register main fieldset .error {
+    margin-top: 1rem;
+    font-size: 15px;
+    color: #ff4d4d;
+}
+
 .page-register i {
     position: absolute;
     color: var(--color-primary);
