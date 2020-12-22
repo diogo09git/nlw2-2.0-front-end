@@ -43,8 +43,9 @@ function TeacherList () {
                     <Select 
                         name="subject" 
                         label="Máteria"
+                        required
                         value={subject}
-                        onChange={e => { setSubject(e.target.value) }}
+                        onChange={e => setSubject(e.target.value) }
                         options={[
                             { value: 'Artes', label: 'Artes' },
                             { value: 'Biologia', label: 'Biologia' },
@@ -56,8 +57,9 @@ function TeacherList () {
                     <Select 
                         name="week-day" 
                         label="Dia da semana"
+                        required
                         value={week_day}
-                        onChange={e => { setWeekDay(e.target.value) }}
+                        onChange={e => setWeekDay(e.target.value) }
                         options={[
                             { value: '0', label: 'Domingo' },
                             { value: '1', label: 'Segunda-feira' },
@@ -71,8 +73,9 @@ function TeacherList () {
                     <Input type="time"
                         name="time" 
                         label="Hora"
+                        required
                         value={time}
-                        onChange={e => { setTime(e.target.value) }}
+                        onChange={e => setTime(e.target.value) }
                     />
 
                     <button type="submit">Buscar</button>

@@ -97,7 +97,12 @@ function TeacherForm() {
                             <strong>Diogo Gonçalves</strong>
                             <span>
                                 <label htmlFor="">WhatsApp</label>
-                                <input type="text"/>
+                                <input 
+                                    type="text"
+                                    required
+                                    value={whatsapp}
+                                    onChange={e => setWhatsapp(e.target.value) }
+                                />
                             </span>
                         </div>
 
@@ -105,7 +110,8 @@ function TeacherForm() {
                             name="bio" 
                             label="Biografia"
                             required
-                            value={bio} onChange={(e) => { setBio(e.target.value) }}
+                            value={bio} 
+                            onChange={(e) => setBio(e.target.value) }
                         />
 
                     </fieldset>
@@ -119,7 +125,7 @@ function TeacherForm() {
                                 label="Máteria"
                                 value={subject}
                                 required
-                                onChange={(e) => { setSubject(e.target.value) }}
+                                onChange={(e) => setSubject(e.target.value) }
                                 options={[
                                     { value: 'Artes', label: 'Artes' },
                                     { value: 'Biologia', label: 'Biologia' },
@@ -130,11 +136,14 @@ function TeacherForm() {
                             />
                             <div className="cost">
                                 <label htmlFor="">Custo da sua hora por aula</label>
-                                <input type="text" placeholder="R$"/>
+                                <input 
+                                    type="text" 
+                                    placeholder="R$"
+                                    value={cost}
+                                    onChange={e => setCost(e.target.value) }
+                                />
                             </div>
                         </div>
-                        
-                        {/* <Input name="cost" label="Custo da sua hora por aula" value={cost} onChange={(e) => { setCost(e.target.value) }}/> */}
                         
                     </fieldset>
 
