@@ -15,7 +15,7 @@ function Routes() {
         <BrowserRouter>
             <Route path="/" exact component={InnerForm} />
             <Route path="/study" component={TeacherList} />
-            <Route path="/give-classes" component={TeacherForm} />
+            <Route path="/register-teacher" component={TeacherForm} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={RegisterForm}/>
             <Route path="/conclusion-reg" component={RegisterConc}/>
