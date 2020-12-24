@@ -13,7 +13,7 @@ import InnerForm from './pages/TestValidation';
 function Routes() {
     return(
         <BrowserRouter>
-            <Route path="/" exact component={InnerForm} />
+            <Route path="/" exact component={LoginPlain} />
             <Route path="/study" component={TeacherList} />
             <Route path="/register-teacher" component={TeacherForm} />
             <Route path="/login" component={Login} />

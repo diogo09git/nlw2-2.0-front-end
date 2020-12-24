@@ -10,6 +10,7 @@ import purple from '../../assets/images/icons/purple-heart.svg';
 import check from '../../assets/images/icons/check.svg';
 
 import './styles.css';
+import Alert from '../../components/Alert';
 
 function Login() {
     const[state, dispatch] = useReducer(loginReducer, initialState);
@@ -33,6 +34,7 @@ return(
         <PageLogin>
             <main>
                 <fieldset>
+                    <Alert message={error} />
                     <form action="">
                         <legend>Fazer login</legend>
                         <InputLogin

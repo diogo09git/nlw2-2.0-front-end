@@ -1,4 +1,5 @@
 import React, { useReducer } from 'react';
+import Alert from '../components/Alert';
 import { login } from './login';
 import loginReducer, { initialState } from './useReducer';
 
@@ -42,7 +43,8 @@ return (
             </>
         ) : ( 
         <form onSubmit={loading}>
-            {error && <p>{error}</p>}
+            {/* {error && <p>{error}</p>} */}
+            <Alert message={error} />
             <input 
                 type="text" 
                 value= {email}
