@@ -1,4 +1,5 @@
 import React from 'react';
+import './styles.css';
 
 interface AlertProps  {
     message: string;
@@ -6,7 +7,7 @@ interface AlertProps  {
 
 const Alert:React.FC<AlertProps> = ({ message }) => {
     return(
-    <div role="alert">
+    <div className="error" role="alert">
         <span>{message}</span>
     </div>
     )}

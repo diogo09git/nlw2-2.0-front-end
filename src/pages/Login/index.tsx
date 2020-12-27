@@ -34,9 +34,10 @@ return(
         <PageLogin>
             <main>
                 <fieldset>
-                    <Alert message={error} />
                     <form action="">
                         <legend>Fazer login</legend>
+                        <Alert message="E-mail ou Senha inválidos !" />
+
                         <InputLogin
                             label="E-mail" 
                             value={email} 
