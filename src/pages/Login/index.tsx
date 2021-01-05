@@ -4,13 +4,13 @@ import { Link } from 'react-router-dom';
 import InputLogin from '../../components/InputLogin';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
-import loginReducer, { initialState } from '../useReducer';
+import loginReducer, { initialState } from '../../hooks/useReducer';
 
 import purple from '../../assets/images/icons/purple-heart.svg';
 import check from '../../assets/images/icons/check.svg';
+import Alert from '../../components/Alert';
 
 import './styles.css';
-import Alert from '../../components/Alert';
 
 function Login() {
     const[state, dispatch] = useReducer(loginReducer, initialState);
