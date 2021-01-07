@@ -9,9 +9,11 @@ import ForgetPass, { ForgetConc } from './pages/ForgetPass';
 import LoginPlain from './pages/LoginPlain';
 import UserSearchForm from './pages/TestValidation';
 import InnerForm from './pages/TestValidation';
+import { AuthProvider } from './hooks/useAuth';
 
-function Routes() {
+const Routes = () => {
     return(
+        <AuthProvider>
         <BrowserRouter>
             <Route path="/" exact component={LoginPlain} />
             <Route path="/study" component={TeacherList} />
@@ -22,6 +24,7 @@ function Routes() {
             <Route path="/forget" component={ForgetPass}/>
             <Route path="/conclusion-forg" component={ForgetConc}/>
         </BrowserRouter>
+        </AuthProvider>
     );
 }
 

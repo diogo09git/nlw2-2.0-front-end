@@ -1,16 +1,26 @@
-
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { AUTH_ENDPOINT, CREDENTIALS_NAME } from '../Utils/constants';
 
-type Credentials = {
+interface User {
     username: string;
     token: string;
     name: string;
 }
 
-export const useAuth = () => {
-    const [credentials, setCredentials] = useState<Credentials>({ username: '', token: '', name: '' });
+interface AuthContextData {
+    login(email: string, passord: string): void;
+    logout(): void;
+    isAuthenticated(): boolean;
+    error: string;
+    credentials: User;
+}
+
+const AuthContext = createContext<AuthContextData>({} as AuthContextData);
+
+const AuthProvider: React.FC = ({ children }) => {
+    const [credentials, setCredentials] = useState<User>({ username: '', token: '', name: '' });
+    const [error, setError] = useState<string>('');
 
     useEffect(() => {
         loadCredentials();
@@ -23,7 +33,7 @@ export const useAuth = () => {
             storeCredentials(token);
             
         } catch (error) {
-            Promise.reject(error);
+            setError('E-mail ou senha incorreto');
         }
     }
 
@@ -51,5 +61,19 @@ export const useAuth = () => {
         return sessionStorage.getItem(CREDENTIALS_NAME) !== null;
     }
 
-    return { login, logout, isAuthenticated, credentials };
+    return(
+        <AuthContext.Provider
+            value={{ login, logout, isAuthenticated, error, credentials }}
+        >
+            {children}
+
+        </AuthContext.Provider>
+    );
+};
+
+function useAuth() {
+    const context = useContext(AuthContext);
+    return context;
 }
+
+export { AuthProvider, useAuth };
