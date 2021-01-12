@@ -33,7 +33,7 @@ const AuthProvider: React.FC = ({ children }) => {
             storeCredentials(token);
             
         } catch (error) {
-            setError('E-mail ou senha incorreto');
+            setError('E-mail e ou senha incorretos');
         }
     }
 

@@ -14,16 +14,16 @@ import { AuthProvider } from './hooks/useAuth';
 const Routes = () => {
     return(
         <AuthProvider>
-        <BrowserRouter>
-            <Route path="/" exact component={LoginPlain} />
-            <Route path="/study" component={TeacherList} />
-            <Route path="/register-teacher" component={TeacherForm} />
-            <Route path="/login" component={Login} />
-            <Route path="/register" component={RegisterForm}/>
-            <Route path="/conclusion-reg" component={RegisterConc}/>
-            <Route path="/forget" component={ForgetPass}/>
-            <Route path="/conclusion-forg" component={ForgetConc}/>
-        </BrowserRouter>
+            <BrowserRouter>
+                <Route path="/" exact component={LoginPlain} />
+                <Route path="/study" component={TeacherList} />
+                <Route path="/register-teacher" component={TeacherForm} />
+                <Route path="/login" component={Login} />
+                <Route path="/register" component={RegisterForm}/>
+                <Route path="/conclusion-reg" component={RegisterConc}/>
+                <Route path="/forget" component={ForgetPass}/>
+                <Route path="/conclusion-forg" component={ForgetConc}/>
+            </BrowserRouter>
         </AuthProvider>
     );
 }

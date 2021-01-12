@@ -1,10 +1,10 @@
-import React, { useReducer, useState } from 'react';
+import React, { useState } from 'react';
 import PageLogin from '../../components/PageLogin';
 import { Link } from 'react-router-dom';
 import InputLogin from '../../components/InputLogin';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
-import loginReducer, { initialState } from '../../hooks/useReducer';
+import { useAuth } from '../../hooks/useAuth';
 
 import purple from '../../assets/images/icons/purple-heart.svg';
 import check from '../../assets/images/icons/check.svg';
@@ -13,9 +13,9 @@ import Alert from '../../components/Alert';
 import './styles.css';
 
 function Login() {
-    const[state, dispatch] = useReducer(loginReducer, initialState);
-    const { email, password, isLoading, error, isLoggedIn } = state;
 
+    const auth = useAuth();
+    const [userForm, setUserForm] = useState({ email: '', passord: ''});
     const [remember, setRemember] = useState(false);
     const [visible, setVisible] = useState(false);
     const eye = <FontAwesomeIcon icon={faEye}/>;
@@ -29,35 +29,30 @@ function Login() {
         setRemember(true);
     }
 
+    async function handleSubmit (e: React.FormEvent) {
+        e.preventDefault();
+        auth.login(userForm.email, userForm.passord);
+    }
+
 return(
     <div id="page-login-form">
         <PageLogin>
             <main>
                 <fieldset>
-                    <form action="">
+                    <form onSubmit={handleSubmit}>
                         <legend>Fazer login</legend>
                         <Alert message="E-mail ou Senha inválidos !" />
 
                         <InputLogin
                             label="E-mail" 
-                            value={email} 
-                            onChange={e => 
-                                dispatch({
-                                    type: 'field',
-                                    fieldName: 'email',
-                                    payload: e.currentTarget.value,
-                                })}
+                            value={userForm.email} 
+                            onChange={e => setUserForm({ ...userForm, email: e.target.value })}
                         />
                         <InputLogin
                             type={ visible ? "text" : "password" }
                             label="Senha" 
-                            value={password} 
-                            onChange={e => 
-                                dispatch({
-                                    type: 'field',
-                                    fieldName: 'password',
-                                    payload: e.currentTarget.value,
-                                })}
+                            value={userForm.passord} 
+                            onChange={e => setUserForm({ ...userForm, passord: e.target.value })}
                         />
                         <i onClick={ handleVisible }>{ visible ? eye : eyeSlah }</i>
                         
