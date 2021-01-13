@@ -6,16 +6,13 @@ import TeacherForm from './pages/TeacherForm';
 import Login from './pages/Login';
 import RegisterForm, { RegisterConc } from './pages/RegisterForm';
 import ForgetPass, { ForgetConc } from './pages/ForgetPass';
-import LoginPlain from './pages/LoginPlain';
-import UserSearchForm from './pages/TestValidation';
-import InnerForm from './pages/TestValidation';
 import { AuthProvider } from './hooks/useAuth';
 
 const Routes = () => {
     return(
         <AuthProvider>
             <BrowserRouter>
-                <Route path="/" exact component={LoginPlain} />
+                <Route path="/" exact component={Landing} />
                 <Route path="/study" component={TeacherList} />
                 <Route path="/register-teacher" component={TeacherForm} />
                 <Route path="/login" component={Login} />

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PageLogin from '../../components/PageLogin';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import InputLogin from '../../components/InputLogin';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
@@ -12,10 +12,10 @@ import Alert from '../../components/Alert';
 
 import './styles.css';
 
-function Login() {
+const Login = () => {
 
     const auth = useAuth();
-    const [userForm, setUserForm] = useState({ email: '', passord: ''});
+    const [userForm, setUserForm] = useState({ email: '', passord: '' });
     const [remember, setRemember] = useState(false);
     const [visible, setVisible] = useState(false);
     const eye = <FontAwesomeIcon icon={faEye}/>;
@@ -29,9 +29,13 @@ function Login() {
         setRemember(true);
     }
 
-    async function handleSubmit (e: React.FormEvent) {
-        e.preventDefault();
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault(); 
         auth.login(userForm.email, userForm.passord);
+    }
+
+    if(auth.isAuthenticated()) {
+        return <Redirect to="/" />
     }
 
 return(
@@ -41,7 +45,7 @@ return(
                 <fieldset>
                     <form onSubmit={handleSubmit}>
                         <legend>Fazer login</legend>
-                        <Alert message="E-mail ou Senha inválidos !" />
+                        {auth.error && <Alert message={auth.error} /> }
 
                         <InputLogin
                             label="E-mail" 
@@ -69,7 +73,7 @@ return(
                             </label>
                         </div>
 
-                        <button type="submit">Entrar</button>
+                        <button type="submit" disabled={auth.processing}>Entrar</button>
                     </form>
 
                     <footer>

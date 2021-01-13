@@ -13,6 +13,7 @@ interface AuthContextData {
     logout(): void;
     isAuthenticated(): boolean;
     error: string;
+    processing: boolean;
     credentials: User;
 }
 
@@ -20,20 +21,25 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 const AuthProvider: React.FC = ({ children }) => {
     const [credentials, setCredentials] = useState<User>({ username: '', token: '', name: '' });
-    const [error, setError] = useState<string>('');
+    const [processing, setProcessing] = useState(false);
+    const [error, setError] = useState('');
 
     useEffect(() => {
         loadCredentials();
     },[])
 
     const login = async (email:string, password:string): Promise<void> => {
+        setProcessing(true);
+
         try {
             const response = await axios.post(`${AUTH_ENDPOINT}/login`, { email: email, password: password })
             const token = response.headers['authorization'].replace('Bearer ', '');
             storeCredentials(token);
+            setProcessing(false);
             
         } catch (error) {
-            setError('E-mail e ou senha incorretos');
+            setError('E-mail e ou senha inválidos !');
+            setProcessing(false);
         }
     }
 
@@ -63,7 +69,7 @@ const AuthProvider: React.FC = ({ children }) => {
 
     return(
         <AuthContext.Provider
-            value={{ login, logout, isAuthenticated, error, credentials }}
+            value={{ login, logout, isAuthenticated, error, credentials, processing }}
         >
             {children}
 
