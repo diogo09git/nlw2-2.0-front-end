@@ -1,4 +1,4 @@
-import React, { useState, FormEvent } from 'react'
+import React, { useState, FormEvent, useEffect } from 'react'
 import PageHeader from '../../components/PageHeader';
 import TeacherItem, { Teacher } from '../../components/TeacherItem';
 import Input from '../../components/Input';
@@ -6,15 +6,28 @@ import Select from '../../components/Select';
 import api from '../../services/api';
 
 import smile from '../../assets/images/icons/smile.svg';
+import { useTeachers } from '../../hooks/useTeachers';
+import { useAuth } from '../../hooks/useAuth';
 
 import './styles.css';
+import { Redirect } from 'react-router-dom';
 
 
-function TeacherList () {
-    const [teachers, setTeachers] = useState([]);
+const TeacherList = () => {
+    const teachers = useTeachers();
+    const auth = useAuth();
+    // const [teachers, setTeachers] = useState([]);
     const [subject, setSubject] = useState('');
     const [week_day, setWeekDay] = useState('');
     const [time, setTime] = useState('');
+
+    useEffect(() => {
+        if(auth.credentials.username !== '') {
+            teachers.list();
+        }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [auth.credentials])
 
     async function searchTeachers(e: FormEvent) {
         e.preventDefault();
@@ -26,7 +39,11 @@ function TeacherList () {
                 time
             }
         });
-        setTeachers(response.data);
+        // setTeachers(response.data);
+    }
+
+    if(!auth.isAuthenticated()) {
+        return <Redirect to="/login" />
     }
 
     return(
@@ -84,9 +101,9 @@ function TeacherList () {
             </PageHeader>
 
             <main>
-                { teachers.map((teacher: Teacher) => {
+                {/* { teachers.map((teacher: Teacher) => {
                     return <TeacherItem key={teacher.id} teacher={teacher} />
-                })}
+                })} */}
             </main>
         </div>
     );
