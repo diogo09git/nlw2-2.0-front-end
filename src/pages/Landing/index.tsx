@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 import logoImg from '../../assets/images/logo.svg';
 import landingImg from '../../assets/images/landing.svg';
@@ -8,19 +8,25 @@ import giveClassesIcon from '../../assets/images/icons/give-classes.svg';
 import pupleHeartIcon from '../../assets/images/icons/purple-heart.svg';
 import user from '../../assets/images/images.png';
 import loggOff from '../../assets/images/icons/power2.svg';
-import api from '../../services/api';
+// import api from '../../services/api';
+import { useAuth } from '../../hooks/useAuth';
 
 import './styles.css';
 
 function Landing() {
     const [totalConnections, setTotalConnections] = useState(0);
+    const auth = useAuth();
 
-    useEffect(() => {
-        api.get('connections').then(response => {
-            const { total } = response.data;
-            setTotalConnections(total);
-        })
-    });
+    // useEffect(() => {
+    //     api.get('connections').then(response => {
+    //         const { total } = response.data;
+    //         setTotalConnections(total);
+    //     })
+    // });
+
+    if(!auth.isAuthenticated()) {
+        return <Redirect to="/login" />
+    }
 
     return(
         <div id="page-landing">

@@ -3,7 +3,7 @@ import PageHeader from '../../components/PageHeader';
 import Input from '../../components/Input';
 import TextArea from '../../components/TextArea';
 import Select from '../../components/Select';
-import api from '../../services/api';
+// import api from '../../services/api';
 import { useHistory } from 'react-router-dom';
 
 import warningsIcon from '../../assets/images/icons/warning.svg';
@@ -46,36 +46,36 @@ function TeacherForm() {
         setScheduleItems(updatedScheduleItems);
     }
 
-    function handleCreateClass(e: FormEvent) {
-        e.preventDefault();
+    // function handleCreateClass(e: FormEvent) {
+    //     e.preventDefault();
 
-        api.post('classes', {
-            name,
-            avatar,
-            whatsapp,
-            bio,
-            subject,
-            cost: Number(cost),
-            schedule: scheduleItems,
+    //     api.post('classes', {
+    //         name,
+    //         avatar,
+    //         whatsapp,
+    //         bio,
+    //         subject,
+    //         cost: Number(cost),
+    //         schedule: scheduleItems,
 
-        }).then(() => {
-            alert('Cadastro realizado');
-            history.push('/');
+    //     }).then(() => {
+    //         alert('Cadastro realizado');
+    //         history.push('/');
             
-        }).catch(() => {
-            alert('Erro');
-        })
+    //     }).catch(() => {
+    //         alert('Erro');
+    //     })
 
-        console.log({
-            name,
-            avatar,
-            whatsapp,
-            bio,
-            subject,
-            cost,
-            scheduleItems,
-        });
-    }
+    //     console.log({
+    //         name,
+    //         avatar,
+    //         whatsapp,
+    //         bio,
+    //         subject,
+    //         cost,
+    //         scheduleItems,
+    //     });
+    // }
 
     return(
         <div id="page-teacher-form" className="container">
@@ -88,7 +88,7 @@ function TeacherForm() {
             />
 
             <main>
-                <form onSubmit={handleCreateClass}>
+                <form>
                     <fieldset>
                         <legend>Seus dados</legend>
 

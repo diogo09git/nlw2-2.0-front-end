@@ -3,41 +3,30 @@ import { useState } from "react";
 import { API_ENDPOINT } from "../Utils/constants";
 import { useAuth } from "./useAuth";
 
-interface Lesson {
-    id: number | null,
-    whatsApp: string,
-    bio: string,
-    theme: string,
-    value: number | null,
-    weekDay: number | null,
-    startHour: string,
-    finishHour: string
-}
-
-const initialState: Lesson = {
-    id: null,
-    whatsApp: '',
-    bio: '',
-    theme: '',
-    value: null,
-    weekDay: null,
-    startHour: '',
-    finishHour: ''
-}
+// interface Lesson {
+//     id: number | null,
+//     whatsApp: string,
+//     bio: string,
+//     theme: string,
+//     value: number | null,
+//     weekDay: string,
+//     startHour: string,
+//     finishHour: string
+// }
 
 export const useTeachers = () => {
 
     const auth = useAuth();
-    const [teacherList, setTeacherList] = useState<Lesson[] | undefined>([]);
+    const [teacherList, setTeacherList] = useState([]);
     const [processing, setProcessing] = useState(false);
     const [error, setError] = useState(null);
 
-    const list = async () => {
+    const list = async (theme: string, day: string) => {
         try {
             setProcessing(true);
             setError(null)
-            const response = await axios.get(`${API_ENDPOINT}/lesson`, buildAuthHeader());
-            setTeacherList(response.data.content);
+            const response = await axios.get(`${API_ENDPOINT}/user/teachers/${theme}/${day}`, buildAuthHeader());
+            setTeacherList(response.data);
         } catch (error) {
             setError(error.message);
             setProcessing(false);
@@ -47,7 +36,7 @@ export const useTeachers = () => {
     const buildAuthHeader = () => {
         return {
             headers: {
-                'Authorization': `Bearer ${auth.credentials.token}`
+                "Authorization": `Bearer ${auth.credentials.token}`,
             }
         }
     }

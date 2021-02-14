@@ -33,7 +33,7 @@ const AuthProvider: React.FC = ({ children }) => {
 
         try {
             const response = await axios.post(`${AUTH_ENDPOINT}/login`, { email: email, password: password })
-            const token = response.headers['authorization'].replace('Bearer ', '');
+            const token = response.headers['authorization'].replace("Bearer", "");
             storeCredentials(token);
             setProcessing(false);
             

@@ -1,49 +1,47 @@
-import React, { useState, FormEvent, useEffect } from 'react'
+import React, { useState, FormEvent } from 'react'
 import PageHeader from '../../components/PageHeader';
 import TeacherItem, { Teacher } from '../../components/TeacherItem';
 import Input from '../../components/Input';
 import Select from '../../components/Select';
-import api from '../../services/api';
 
 import smile from '../../assets/images/icons/smile.svg';
 import { useTeachers } from '../../hooks/useTeachers';
 import { useAuth } from '../../hooks/useAuth';
-
-import './styles.css';
 import { Redirect } from 'react-router-dom';
 
+import './styles.css';
 
 const TeacherList = () => {
     const teachers = useTeachers();
     const auth = useAuth();
     // const [teachers, setTeachers] = useState([]);
-    const [subject, setSubject] = useState('');
-    const [week_day, setWeekDay] = useState('');
+    const [theme, setTheme] = useState('');
+    const [weekDay, setWeekDay] = useState('');
     const [time, setTime] = useState('');
 
-    useEffect(() => {
-        if(auth.credentials.username !== '') {
-            teachers.list();
-        }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [auth.credentials])
-
-    async function searchTeachers(e: FormEvent) {
+    const searchTeachers = (e: FormEvent) => {
         e.preventDefault();
 
-        const response = await api.get('classes', {
-            params: {
-                subject,
-                week_day,
-                time
-            }
-        });
-        // setTeachers(response.data);
+        if(auth.credentials.username !== '') {
+            teachers.list(theme, weekDay);
+        }
     }
 
+    // async function searchTeachers(e: FormEvent) {
+    //     e.preventDefault();
+
+    //     const response = await api.get('classes', {
+    //         params: {
+    //             subject,
+    //             week_day,
+    //             time
+    //         }
+    //     });
+        // setTeachers(response.data);
+    //}
+
     if(!auth.isAuthenticated()) {
-        return <Redirect to="/login" />
+        return <Redirect to="/login"/>
     }
 
     return(
@@ -55,14 +53,13 @@ const TeacherList = () => {
                 description="Escolha um de nossos professores e embarque nesse foguete"
                 text="Nós temos 32 professores"
             >
-
                 <form id="search-teachers" onSubmit={searchTeachers}>
                     <Select 
-                        name="subject" 
+                        name="theme" 
                         label="Máteria"
                         required
-                        value={subject}
-                        onChange={e => setSubject(e.target.value) }
+                        value={theme}
+                        onChange={e => setTheme(e.target.value) }
                         options={[
                             { value: 'Artes', label: 'Artes' },
                             { value: 'Biologia', label: 'Biologia' },
@@ -72,10 +69,10 @@ const TeacherList = () => {
                         ]}
                     />
                     <Select 
-                        name="week-day" 
+                        name="weekDay" 
                         label="Dia da semana"
                         required
-                        value={week_day}
+                        value={weekDay}
                         onChange={e => setWeekDay(e.target.value) }
                         options={[
                             { value: '0', label: 'Domingo' },
@@ -101,9 +98,9 @@ const TeacherList = () => {
             </PageHeader>
 
             <main>
-                {/* { teachers.map((teacher: Teacher) => {
-                    return <TeacherItem key={teacher.id} teacher={teacher} />
-                })} */}
+                {teachers.teacherList.map((teacher: Teacher) => {
+                    return <TeacherItem key={teacher.id} teacher={teacher}/>
+                })}
             </main>
         </div>
     );
