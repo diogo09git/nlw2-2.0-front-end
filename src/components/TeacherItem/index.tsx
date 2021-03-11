@@ -7,15 +7,17 @@ import './styles.css';
 
 export interface Teacher {
     id: number;
-    whatsapp: string;
+    whatsApp: string;
     bio: string;
     theme: string;
     value: number;
-    weekDay: string;
-    startHour: string;
-    finishHour: string;
     avatar: string;
     appUser: string;
+    schedule: {
+        weekDay: string
+        startHour: string
+        finishHour: string
+    }[];
 }
 
 interface TeacherItemProps {
@@ -35,43 +37,33 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
                 <img src={user} alt=""/>
                 <div>
                     <strong>{teacher.appUser}</strong>
-                    <span></span>
+                    <span>{teacher.theme}</span>
                 </div>
             </header>
-
             <p>
                 {teacher.bio}
-            Entusiasta das melhores tecnologias de química avançada.
-            Apaixonado por explodir coisas em laboratório e por mudar a vida das pessoas através de experiências.
-            Mais de 200.000 pessoas já passaram por uma das minhas explosões.
             </p>
-
             <div className="list-day">
-                <div className="day">
+                {teacher.schedule.map(schedules =>  
+                <div className="day" key={schedules.weekDay}>
                     <span>Dia</span>
-                    <strong>{teacher.weekDay}</strong>
+                    <strong>{schedules.weekDay}</strong>
                     <span>Horário</span>
-                    <strong>{teacher.startHour} - {teacher.finishHour}</strong>
+                    <strong>{schedules.startHour} - {schedules.finishHour}</strong>
                 </div>
-
-                <div className="day">
-                    <span>Dia</span>
-                    <strong>Segunda</strong>
-                    <span>Horário</span>
-                    <strong>8h-18h</strong>
-                </div>
+                )}
             </div>
-
             <footer>
                 <p>
                     Preço/hora
                     <strong>U$ {teacher.value}</strong>
                 </p>
 
-                {/* <a href={`https://wa.me/${teacher.whatsapp}`}>
-                    <img src={whatsappIcon} alt="Whatsapp"/>
+                {/* <a href={`https://wa.me/${teacher.whatsapp}`}> */}
+                <a href={`https://api.whatsapp.com/send?phone=55${teacher.whatsApp}`}>
+                    <img src={whatsappIcon} alt="hatsApp"/>
                     Entrar em contato
-                </a> */}
+                </a>
                
             </footer>
         </article>

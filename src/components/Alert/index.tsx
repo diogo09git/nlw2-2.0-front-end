@@ -2,7 +2,7 @@ import React from 'react';
 import './styles.css';
 
 interface AlertProps  {
-    message: string;
+    message: string | undefined;
 }
 
 const Alert:React.FC<AlertProps> = ({ message }) => {

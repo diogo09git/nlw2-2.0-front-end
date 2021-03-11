@@ -38,6 +38,18 @@
     max-width: 740px;
 }
 
+#resp-error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10rem;
+
+    font: 600 2.0rem Poppins;
+    line-height: 3.6rem;
+    font-style: oblique;
+    color: #ff4d4d;
+}
+
 @media(min-width: 700px) {
     #page-teacher-list {
         max-width: 100%;
@@ -45,7 +57,7 @@
 
     #search-teachers {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(2, 1fr);
         column-gap: 16px;
         position: absolute;
         bottom: -28px;
