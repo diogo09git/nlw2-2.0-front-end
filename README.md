@@ -16,7 +16,7 @@ O projeto que se encontra neste repositório é a versão 2.0, foi um desafio pr
 - TypeScript
 - HTML
 - CSS
-- 
+
 ### Back-end
 - Java
 - Spring Boot
@@ -35,10 +35,8 @@ https://github.com/diogo09git/nlw2-2.0-front-end.git
 ```bash
 
 #Instalando as dependências do projeto
-
 $ npm install # ou yarn install
 
 #Iniciando o app web
-
 $npm start # ou yarn start
 ```
