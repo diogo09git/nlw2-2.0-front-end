@@ -6,8 +6,8 @@ O projeto que se encontra neste repositório é a versão 2.0, foi um desafio pr
 
 ## Preview
 
-<img src="/github/home.png" width="900" height="500"/>
-<img src="/github/login.png" width="900" height="500"/>
+<img src="/github/home.png"/>
+<img src="/github/login.png"/>
 
 ## Tecnologias
 
