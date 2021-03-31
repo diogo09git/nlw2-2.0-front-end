@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { useState } from "react";
 import { API_ENDPOINT } from "../Utils/constants";
 import { useAuth } from "./useAuth";
@@ -14,11 +14,21 @@ export const useTeachers = () => {
         try {
             setProcessing(true);
             setError('');
-            const response = await axios.get(`${API_ENDPOINT}/user/teachers?theme=${theme}`, buildAuthHeader());
+            const response = await axios.get(`${API_ENDPOINT}/api/teachers?theme=${theme}`, buildAuthHeader());
             setTeacherList(response.data);
-        } catch (resp) {
-            setError(resp.response.data.error);
-            console.log(resp.response.data.error);
+
+        } catch (error) {
+            handleError(error);
+        }
+    }
+
+    const handleError = (error: AxiosError) => {
+        const resp = error.response;
+        
+        if(resp && resp.status === 400 && resp.data) {
+            setError(resp.data.error);
+        } else {
+            setError("Servidor fora de serviço, tente mais tarde");
         }
     }
 

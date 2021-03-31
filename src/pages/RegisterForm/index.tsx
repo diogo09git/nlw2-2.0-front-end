@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import PageLogin from '../../components/PageLogin';
 import InputLogin from '../../components/InputLogin';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import Conclusion from '../../components/Conclusion';
 import { FormikProps, useFormik } from 'formik';
 import * as Yup from 'yup';
+import { useAuth } from '../../hooks/useAuth';
 
 import backIcon from '../../assets/images/icons/back2.svg';
 
@@ -15,19 +16,20 @@ import './styles.css';
 interface FormValues {
     name: string;
     lastName: string;
-    eMail: string;
+    email: string;
     password: string;
 }
 
 const initialValues: FormValues = {
     name: '',
     lastName: '',
-    eMail: '',
+    email: '',
     password: ''
 }
 
 const RegisterForm: React.FC<FormikProps<FormValues>> = () => {
 
+    const auth = useAuth();
     const [visible, setVisible] = useState(false);
     const eye = <FontAwesomeIcon icon={faEye}/>
     const eyeSlash = <FontAwesomeIcon icon={faEyeSlash}/>
@@ -47,7 +49,7 @@ const RegisterForm: React.FC<FormikProps<FormValues>> = () => {
             lastName: Yup.string()
                 .required('Insira seu sobrenome')
                 .max(12, 'Tente um sobrenome menor'),
-            eMail: Yup.string()
+            email: Yup.string()
                 .email('Tente um email válido')
                 .required('Insira seu e-mail'),
             password: Yup.string()
@@ -55,15 +57,18 @@ const RegisterForm: React.FC<FormikProps<FormValues>> = () => {
                 .max(12, 'Tente uma senha menor')
                 .min(4, 'Senha muito curta, tente novamente')
         }),
-        onSubmit() {
-            history.push('/');
+        onSubmit: values => {
+            auth.registerUser(values);
         }
     })
+
+    if(auth.processing) {
+        return <Redirect to="/conclusion-reg"/>
+    }
 
     return(
         <div className="page-register">
             <PageLogin />
-
             <main>
                 <div className="top-bar-container">
                     <Link to="/">
@@ -99,16 +104,16 @@ const RegisterForm: React.FC<FormikProps<FormValues>> = () => {
                             value={formik.values.lastName}
                         />
 
-                        { formik.errors.eMail && formik.touched.eMail &&
+                        { formik.errors.email && formik.touched.email &&
                             <div className="error">
-                                <span>{ formik.errors.eMail }</span>
+                                <span>{ formik.errors.email }</span>
                             </div>
                         }
                         <InputLogin
                             label="E-mail"
-                            id="eMail"
+                            id="email"
                             onChange={formik.handleChange}
-                            value={formik.values.eMail}
+                            value={formik.values.email}
                         />
 
                         { formik.errors.password && formik.touched.password && 
@@ -126,6 +131,8 @@ const RegisterForm: React.FC<FormikProps<FormValues>> = () => {
                         /> 
                         <i onClick={ handleVisible }>{ visible ? eye : eyeSlash }</i>
 
+                        {auth.error && <div className="error">{ auth.error }</div>}
+
                         <button type="submit">Concluir cadastro</button>
                     </form>
                 </fieldset>
@@ -137,6 +144,7 @@ const RegisterForm: React.FC<FormikProps<FormValues>> = () => {
 export default RegisterForm;
 
 export const RegisterConc = () => {
+
     return(
         <Conclusion 
             title="Cadastro concluído" 

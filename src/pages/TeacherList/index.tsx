@@ -13,10 +13,7 @@ import './styles.css';
 const TeacherList = () => {
     const teachers = useTeachers();
     const auth = useAuth();
-    // const [teachers, setTeachers] = useState([]);
     const [theme, setTheme] = useState('');
-    const [weekDay, setWeekDay] = useState('');
-    const [time, setTime] = useState('');
 
     const searchTeachers = (e: FormEvent) => {
         e.preventDefault();
@@ -25,19 +22,6 @@ const TeacherList = () => {
             teachers.list(theme);
         }
     }
-
-    // async function searchTeachers(e: FormEvent) {
-    //     e.preventDefault();
-
-    //     const response = await api.get('classes', {
-    //         params: {
-    //             subject,
-    //             week_day,
-    //             time
-    //         }
-    //     });
-        // setTeachers(response.data);
-    //}
 
     if(!auth.isAuthenticated()) {
         return <Redirect to="/login"/>

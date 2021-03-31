@@ -32,7 +32,7 @@ function TeacherForm() {
             { week_day: 0, from: '', to: '' },
         ]);
     }
-
+    
     function setScheduleItemValue(position: number, field: string, value: string) {
 
         const updatedScheduleItems = scheduleItems.map((scheduleItem, index) => {
