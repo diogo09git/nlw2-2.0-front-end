@@ -4,9 +4,11 @@ import Landing from './pages/Landing';
 import TeacherList from './pages/TeacherList';
 import TeacherForm from './pages/TeacherForm';
 import Login from './pages/Login';
-import RegisterForm, { RegisterConc } from './pages/RegisterForm';
+import RegisterForm from './pages/RegisterForm';
 import ForgetPass, { ForgetConc } from './pages/ForgetPass';
 import { AuthProvider } from './hooks/useAuth';
+import TeacherItem from './components/TeacherItem';
+import { RegisterConc } from './pages/RegisterConc';
 
 const Routes = () => {
     return(
@@ -20,6 +22,7 @@ const Routes = () => {
                 <Route path="/conclusion-reg" component={RegisterConc}/>
                 <Route path="/forget" component={ForgetPass}/>
                 <Route path="/conclusion-forg" component={ForgetConc}/>
+                <Route path="/test" component={TeacherItem} />
             </BrowserRouter>
         </AuthProvider>
     );

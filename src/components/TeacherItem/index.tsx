@@ -12,7 +12,9 @@ export interface Teacher {
     theme: string;
     value: number;
     avatar: string;
-    appUser: string;
+    appUser: {
+        name: string;
+    };
     schedule: {
         weekDay: string
         startHour: string
@@ -36,7 +38,7 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
             <header>
                 <img src={user} alt=""/>
                 <div>
-                    <strong>{teacher.appUser}</strong>
+                    <strong>{teacher.appUser.name}</strong>
                     <span>{teacher.theme}</span>
                 </div>
             </header>

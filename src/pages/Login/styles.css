@@ -122,3 +122,7 @@
     display: grid;
     font: 600 1.6rem Poppins;
 }
+
+#page-login-form main fieldset footer p a:active {
+    color: unset;
+}

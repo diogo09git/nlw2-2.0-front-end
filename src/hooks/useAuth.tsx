@@ -35,8 +35,8 @@ const AuthProvider: React.FC = ({ children }) => {
     },[])
 
     const login = async (email:string, password:string): Promise<void> => {
-        setProcessing(true);
-
+        console.log(processing);
+        setProcessing(false);
         try {
             const response = await axios.post(`${AUTH_ENDPOINT}/login`, { email: email, password: password })
             const token = response.headers['authorization'].replace("Bearer", "");
@@ -51,11 +51,12 @@ const AuthProvider: React.FC = ({ children }) => {
 
     const registerUser = async (userToSave:{name: string, lastName: string, email: string, password: string}) => {
         try {
+            setProcessing(true);
             setError('');
             await axios.post(`${AUTH_ENDPOINT}/api/users`, userToSave);
-            setProcessing(true);
         } catch (error) {
             handleError(error);
+            setProcessing(false);
         }
     }
 

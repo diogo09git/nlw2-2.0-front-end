@@ -73,13 +73,13 @@ return(
                             </label>
                         </div>
 
-                        <button type="submit" disabled={auth.processing}>Entrar</button>
+                        <button type="submit">Entrar</button>
                     </form>
 
                     <footer>
                         <p>
                             Não tem conta ?
-                            <Link to="" className="">
+                            <Link to="/register"> 
                                 Cadastre-se
                             </Link>
                         </p>

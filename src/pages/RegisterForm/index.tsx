@@ -4,7 +4,6 @@ import InputLogin from '../../components/InputLogin';
 import { Link, Redirect, useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import Conclusion from '../../components/Conclusion';
 import { FormikProps, useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useAuth } from '../../hooks/useAuth';
@@ -142,14 +141,3 @@ const RegisterForm: React.FC<FormikProps<FormValues>> = () => {
 }
 
 export default RegisterForm;
-
-export const RegisterConc = () => {
-
-    return(
-        <Conclusion 
-            title="Cadastro concluído" 
-            description="Agora você faz parte da plataforma da Proffy. Tenha uma ótima experiência." 
-            buttonName="Login"
-        />
-    );
-}

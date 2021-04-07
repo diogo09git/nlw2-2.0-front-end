@@ -17,7 +17,7 @@ const Conclusion: React.FC<ConclusionProps> = ({ title, description, buttonName 
                 <img src={successIcon} alt="Success"/>
                 <h1>{ title }</h1>
                 <p>{ description }</p>
-                <Link to="">
+                <Link to="/login">
                     <button type="button">{ buttonName }</button>
                 </Link>
             </div>
