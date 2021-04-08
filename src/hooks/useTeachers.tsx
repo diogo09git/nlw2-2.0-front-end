@@ -1,6 +1,6 @@
 import axios, { AxiosError } from "axios";
 import { useState } from "react";
-import { API_ENDPOINT } from "../Utils/constants";
+import { API_ENDPOINT, AUTH_ENDPOINT } from "../Utils/constants";
 import { useAuth } from "./useAuth";
 
 export const useTeachers = () => {
@@ -16,11 +16,31 @@ export const useTeachers = () => {
             setError('');
             const response = await axios.get(`${API_ENDPOINT}/api/teachers?theme=${theme}`, buildAuthHeader());
             setTeacherList(response.data);
-
         } catch (error) {
             handleError(error);
         }
     }
+
+    const registerLessons = async (
+        lessonTosave:{
+            whatsApp: string,
+            bio: string,
+            theme: string,
+            value: number,
+            schedule: {
+                weekDay: string,
+                startHour: string,
+                finishHour: string
+            }[]
+        }) => {
+            try {
+                setError('');
+                await axios.post(`${AUTH_ENDPOINT}/api/lessons`, lessonTosave, buildAuthHeader());
+                setProcessing(true);
+            } catch (error) {
+                handleError(error);
+            }
+        }
 
     const handleError = (error: AxiosError) => {
         const resp = error.response;
@@ -40,5 +60,5 @@ export const useTeachers = () => {
         }
     }
 
-    return { list, teacherList, processing, error };
+    return { list, registerLessons, teacherList, processing, error };
 }

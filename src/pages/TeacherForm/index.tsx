@@ -3,39 +3,40 @@ import PageHeader from '../../components/PageHeader';
 import Input from '../../components/Input';
 import TextArea from '../../components/TextArea';
 import Select from '../../components/Select';
-// import api from '../../services/api';
-import { useHistory } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 import warningsIcon from '../../assets/images/icons/warning.svg';
 import user from '../../assets/images/images.png';
 import rocket from '../../assets/images/icons/rocket.svg';
+import { useTeachers } from '../../hooks/useTeachers';
+import { useAuth } from '../../hooks/useAuth';
+import Conclusion from '../../components/Conclusion';
 
 import './styles.css';
 
 function TeacherForm() {
-    const history = useHistory();
 
-    const [name, setName] = useState('');
-    const [avatar, setAvatar] = useState('');
-    const [whatsapp, setWhatsapp] = useState('');
+    const teachers = useTeachers();
+    const auth = useAuth();
+    const [whatsApp, setWhatsApp] = useState('');
     const [bio, setBio] = useState('');
-    const [subject, setSubject] = useState('');
-    const [cost, setCost] = useState('');
+    const [theme, setTheme] = useState('');
+    const [value, setValue] = useState('');
 
-    const [scheduleItems, setScheduleItems] = useState([
-        { week_day: 0, from: '', to: '' }
+    const [schedule, setSchedule] = useState([
+        { weekDay: '', startHour: '', finishHour: '' }
     ]);
 
     function addNewScheduleItem() {
-        setScheduleItems([
-            ...scheduleItems,
-            { week_day: 0, from: '', to: '' },
+        setSchedule([
+            ...schedule,
+            { weekDay: '', startHour: '', finishHour: '' },
         ]);
     }
     
     function setScheduleItemValue(position: number, field: string, value: string) {
 
-        const updatedScheduleItems = scheduleItems.map((scheduleItem, index) => {
+        const updatedSchedule = schedule.map((scheduleItem, index) => {
             if(index === position) {
                 return { ...scheduleItem, [field]: value };
             }
@@ -43,39 +44,28 @@ function TeacherForm() {
             return scheduleItem;
         });
 
-        setScheduleItems(updatedScheduleItems);
+        setSchedule(updatedSchedule);
     }
 
-    // function handleCreateClass(e: FormEvent) {
-    //     e.preventDefault();
+    function handleCreateLessons(e: FormEvent) {
+        e.preventDefault();
 
-    //     api.post('classes', {
-    //         name,
-    //         avatar,
-    //         whatsapp,
-    //         bio,
-    //         subject,
-    //         cost: Number(cost),
-    //         schedule: scheduleItems,
+        teachers.registerLessons({
+            whatsApp, 
+            bio, 
+            theme, 
+            value: Number(value), 
+            schedule: schedule
+        });
+    }
 
-    //     }).then(() => {
-    //         alert('Cadastro realizado');
-    //         history.push('/');
-            
-    //     }).catch(() => {
-    //         alert('Erro');
-    //     })
+    if(!auth.isAuthenticated()) {
+        return <Redirect to="/login"/>
+    }
 
-    //     console.log({
-    //         name,
-    //         avatar,
-    //         whatsapp,
-    //         bio,
-    //         subject,
-    //         cost,
-    //         scheduleItems,
-    //     });
-    // }
+    if(teachers.processing) {
+        return <Redirect to="/conclusion-less"/>
+    }
 
     return(
         <div id="page-teacher-form" className="container">
@@ -88,8 +78,10 @@ function TeacherForm() {
             />
 
             <main>
-                <form>
+                <form onSubmit={handleCreateLessons}>
                     <fieldset>
+                        { teachers.error && <div className="error">{teachers.error}</div> }
+                        
                         <legend>Seus dados</legend>
 
                         <div className="user-data">
@@ -100,8 +92,8 @@ function TeacherForm() {
                                 <input 
                                     type="text"
                                     required
-                                    value={whatsapp}
-                                    onChange={e => setWhatsapp(e.target.value) }
+                                    value={whatsApp}
+                                    onChange={e => setWhatsApp(e.target.value) }
                                 />
                             </span>
                         </div>
@@ -121,11 +113,11 @@ function TeacherForm() {
 
                         <div className="about-class">
                             <Select 
-                                name="subject" 
+                                name="theme" 
                                 label="Máteria"
-                                value={subject}
+                                value={theme}
                                 required
-                                onChange={(e) => setSubject(e.target.value) }
+                                onChange={(e) => setTheme(e.target.value) }
                                 options={[
                                     { value: 'Artes', label: 'Artes' },
                                     { value: 'Biologia', label: 'Biologia' },
@@ -139,8 +131,8 @@ function TeacherForm() {
                                 <input 
                                     type="text" 
                                     placeholder="R$"
-                                    value={cost}
-                                    onChange={e => setCost(e.target.value) }
+                                    value={value}
+                                    onChange={e => setValue(e.target.value) }
                                 />
                             </div>
                         </div>
@@ -153,39 +145,39 @@ function TeacherForm() {
                             <button type="button" onClick={addNewScheduleItem}>+ Novo horário</button>
                         </legend>
                         
-                        { scheduleItems.map((scheduleItem, index) => {
+                        { schedule.map((scheduleItem, index) => {
                         return(
                             <div className="schedule-item" key={index} >
                                 <Select 
-                                    name="week_day"
-                                    value={scheduleItem.week_day}
+                                    name="weekDay"
+                                    value={scheduleItem.weekDay}
                                     label="Dia da semana"
                                     required
-                                    onChange={e => setScheduleItemValue(index, 'week_day', e.target.value) }
+                                    onChange={e => setScheduleItemValue(index, 'weekDay', e.target.value) }
                                     options={[
-                                        { value: '0', label: 'Domingo' },
-                                        { value: '1', label: 'Segunda-feira' },
-                                        { value: '2', label: 'Terça-feira' },
-                                        { value: '3', label: 'Quarta-feira' },
-                                        { value: '4', label: 'Quinta-feira' },
-                                        { value: '5', label: 'Sexta-feira' },
-                                        { value: '6', label: 'Sábado' }
+                                        { value: 'Domingo', label: 'Domingo' },
+                                        { value: 'Segunda-feira', label: 'Segunda-feira' },
+                                        { value: 'Terça-feira', label: 'Terça-feira' },
+                                        { value: 'Quarta-feira', label: 'Quarta-feira' },
+                                        { value: 'Quinta-feira', label: 'Quinta-feira' },
+                                        { value: 'Sexta-feira', label: 'Sexta-feira' },
+                                        { value: 'Sábado', label: 'Sábado' }
                                     ]}
                                 />
-                                <Input name="from"
-                                    value={scheduleItem.from}
+                                <Input name="startHour"
+                                    value={scheduleItem.startHour}
                                     label="Das" 
                                     type="time"
                                     required
-                                    onChange={e => setScheduleItemValue(index, 'from', e.target.value) }
+                                    onChange={e => setScheduleItemValue(index, 'startHour', e.target.value) }
                                 />
 
-                                <Input name="to"
-                                    value={scheduleItem.to}
+                                <Input name="finishHour"
+                                    value={scheduleItem.finishHour}
                                     label="Até"
                                     required
                                     type="time"
-                                    onChange={e => setScheduleItemValue(index, 'to', e.target.value) }/>
+                                    onChange={e => setScheduleItemValue(index, 'finishHour', e.target.value) }/>
                             </div>
                             )
                         })}

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PageLogin from '../../components/PageLogin';
 import InputLogin from '../../components/InputLogin';
-import { Link, Redirect, useHistory } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FormikProps, useFormik } from 'formik';
@@ -32,8 +32,6 @@ const RegisterForm: React.FC<FormikProps<FormValues>> = () => {
     const [visible, setVisible] = useState(false);
     const eye = <FontAwesomeIcon icon={faEye}/>
     const eyeSlash = <FontAwesomeIcon icon={faEyeSlash}/>
-
-    const history = useHistory();
 
     const handleVisible = () => {
         setVisible(visible ? false : true);

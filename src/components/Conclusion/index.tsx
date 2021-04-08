@@ -8,16 +8,17 @@ interface ConclusionProps {
     title: string;
     description: string;
     buttonName: string;
+    to: string;
 }
 
-const Conclusion: React.FC<ConclusionProps> = ({ title, description, buttonName }) => {
+const Conclusion: React.FC<ConclusionProps> = ({ title, description, buttonName, to }) => {
     return(
         <div className="page-finish">
             <div className="finish-container">
                 <img src={successIcon} alt="Success"/>
                 <h1>{ title }</h1>
                 <p>{ description }</p>
-                <Link to="/login">
+                <Link to={ to }>
                     <button type="button">{ buttonName }</button>
                 </Link>
             </div>

@@ -9,6 +9,7 @@ import ForgetPass, { ForgetConc } from './pages/ForgetPass';
 import { AuthProvider } from './hooks/useAuth';
 import TeacherItem from './components/TeacherItem';
 import { RegisterConc } from './pages/RegisterConc';
+import { RegisterLessons } from './pages/RegLessConc';
 
 const Routes = () => {
     return(
@@ -22,6 +23,7 @@ const Routes = () => {
                 <Route path="/conclusion-reg" component={RegisterConc}/>
                 <Route path="/forget" component={ForgetPass}/>
                 <Route path="/conclusion-forg" component={ForgetConc}/>
+                <Route path="/conclusion-less" component={RegisterLessons}/>
                 <Route path="/test" component={TeacherItem} />
             </BrowserRouter>
         </AuthProvider>
