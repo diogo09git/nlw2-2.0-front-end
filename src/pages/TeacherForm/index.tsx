@@ -10,7 +10,6 @@ import user from '../../assets/images/images.png';
 import rocket from '../../assets/images/icons/rocket.svg';
 import { useTeachers } from '../../hooks/useTeachers';
 import { useAuth } from '../../hooks/useAuth';
-import Conclusion from '../../components/Conclusion';
 
 import './styles.css';
 
@@ -81,7 +80,7 @@ function TeacherForm() {
                 <form onSubmit={handleCreateLessons}>
                     <fieldset>
                         { teachers.error && <div className="error">{teachers.error}</div> }
-                        
+
                         <legend>Seus dados</legend>
 
                         <div className="user-data">

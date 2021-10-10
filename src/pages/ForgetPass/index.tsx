@@ -46,6 +46,7 @@ export const ForgetConc = () => {
                 description="Boa, agora é só checar o e-mail que foi enviado para você
                 redefinir sua senha e aproveitar os estudos."
                 buttonName="Voltar ao login"
+                to="/login"
             />
         </div>
     );
